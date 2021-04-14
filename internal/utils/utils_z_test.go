@@ -7,13 +7,14 @@
 package utils_test
 
 import (
+	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/internal/utils"
 	"github.com/gogf/gf/test/gtest"
 	"io/ioutil"
 	"testing"
 )
 
-func Test_ReadCloser(t *testing.T) {
+func TestReadCloser(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			n    int
@@ -64,8 +65,32 @@ func Test_ReadCloser(t *testing.T) {
 	})
 }
 
-func Test_RemoveSymbols(t *testing.T) {
+func TestRemoveSymbols(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		t.Assert(utils.RemoveSymbols(`-a-b._a c1!@#$%^&*()_+:";'.,'01`), `abac101`)
+	})
+}
+
+func TestIsNumeric(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		data := g.Map{
+			"-":     false,
+			"+":     false,
+			"1":     true,
+			"-1":    true,
+			"+1":    true,
+			"=1":    false,
+			"123":   true,
+			"1.23":  true,
+			"-1.23": true,
+			"+1.23": true,
+			"=1.23": false,
+			"123.":  false,
+			"-123.": false,
+			"+123.": false,
+		}
+		for k, v := range data {
+			t.Assert(utils.IsNumeric(k), v)
+		}
 	})
 }
