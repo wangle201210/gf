@@ -21,6 +21,12 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
+var encodeWithOrg = false
+
+func EncodeWithOrg(t bool) {
+	encodeWithOrg = t
+}
+
 type ContentType string
 
 const (
@@ -42,6 +48,7 @@ const (
 type Json struct {
 	mu rwmutex.RWMutex
 	p  *interface{} // Pointer for hierarchical data access, it's the root of data in default.
+	o  *interface{} // org data pointer.
 	c  byte         // Char separator('.' in default).
 	vc bool         // Violence Check(false in default), which is used to access data when the hierarchical data key contains separator char.
 }

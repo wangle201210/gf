@@ -22,6 +22,9 @@ import (
 func (j *Json) ToJson() ([]byte, error) {
 	j.mu.RLock()
 	defer j.mu.RUnlock()
+	if encodeWithOrg {
+		return Encode(*(j.o))
+	}
 	return Encode(*(j.p))
 }
 

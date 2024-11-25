@@ -89,6 +89,7 @@ func NewWithOptions(data interface{}, options Options) *Json {
 		}
 		j = &Json{
 			p:  &pointedData,
+			o:  &data,
 			c:  byte(defaultSplitChar),
 			vc: false,
 		}
